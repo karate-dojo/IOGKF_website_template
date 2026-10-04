@@ -86,16 +86,16 @@ other = "Estamos a organizar o nosso horário de aulas. Volte em breve para ver 
 other = "As suas opções de privacidade"
 
 [analytics_consent_message]
-other = "Gostaria de permitir que o Google Analytics meça as visitas a este website? O Analytics não será carregado sem a sua autorização. Pode alterar a sua escolha a qualquer momento."
+other = "Utilizamos cookies de análise opcionais para compreender como os visitantes utilizam este website. Pode aceitá-los ou rejeitá-los."
 
 [analytics_consent_accept]
-other = "Permitir análise"
+other = "Aceitar cookies de análise"
 
 [analytics_consent_reject]
-other = "Rejeitar análise"
+other = "Rejeitar"
 
 [analytics_consent_settings]
-other = "Definições de privacidade"
+other = "Preferências de cookies"
 
 [analytics_consent_region]
 other = "Opções de consentimento para análise"

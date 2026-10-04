@@ -63,9 +63,12 @@ function createPage({
     body: new Element("body"),
     head: new Element("head"),
     currentScript: new Element("script"),
+    querySelector: () => footer,
     createElement: (tagName) => new Element(tagName),
     addEventListener: (name, callback) => documentListeners.set(name, callback),
   };
+  const footer = new Element("footer");
+  document.body.appendChild(footer);
   document.currentScript.dataset = {
     measurementId,
     consentVersion: version,
@@ -74,9 +77,9 @@ function createPage({
     regionLabel: "Analytics consent options",
     bannerTitle: "Your privacy choices",
     bannerMessage: "Allow analytics?",
-    acceptLabel: "Allow analytics",
-    rejectLabel: "Reject analytics",
-    settingsLabel: "Privacy settings",
+    acceptLabel: "Accept analytics cookies",
+    rejectLabel: "Reject",
+    settingsLabel: "Cookie preferences",
   };
   const window = {
     localStorage: {
@@ -107,14 +110,19 @@ function createPage({
     },
   });
 
-  const findByClass = (name) =>
-    document.body.children.find((element) => element.className === name);
+  const findByClass = (name, element = document.body) => {
+    if (element.className === name) return element;
+    for (const child of element.children) {
+      const found = findByClass(name, child);
+      if (found) return found;
+    }
+  };
   const banner = () => findByClass("analytics-consent");
   const settings = () => findByClass("analytics-consent-settings");
   const actions = () =>
     banner().children.find((element) => element.className === "analytics-consent__actions");
   return {
-    window, document, values, warnings, banner, settings,
+    window, document, footer, values, warnings, banner, settings,
     accept: () => actions().children[0].click(),
     reject: () => actions().children[1].click(),
     openSettings: () => settings().click(),
@@ -143,7 +151,7 @@ test("first visit shows an accessible prompt without loading Google", () => {
 
 test("mounts once the document is ready", () => {
   const page = createPage({ readyState: "loading" });
-  assert.equal(page.document.body.children.length, 0);
+  assert.equal(page.banner(), undefined);
   page.domReady();
   assert.equal(page.banner().hidden, false);
 });
@@ -193,7 +201,7 @@ test("settings can change saved rejection to acceptance", () => {
   page.openSettings();
   assert.equal(page.banner().hidden, false);
   assert.equal(page.settings().hidden, true);
-  assert.equal(page.document.activeElement.textContent, "Allow analytics");
+  assert.equal(page.document.activeElement.textContent, "Accept analytics cookies");
   page.accept();
   assert.equal(page.document.head.children.length, 1);
 });
@@ -328,4 +336,19 @@ test("tag load failures are reported", () => {
   page.document.head.children[0].onerror();
   assert.equal(page.warnings.length, 1);
   assert.match(page.warnings[0][0], /Failed to load/);
+});
+
+test("after either choice the banner closes and only footer preferences remain", () => {
+  for (const choice of ["accept", "reject"]) {
+    const page = createPage();
+    page[choice]();
+    assert.equal(page.banner().hidden, true);
+    assert.equal(page.settings().hidden, false);
+    assert.equal(page.footer.contains(page.settings()), true);
+    assert.equal(page.settings().textContent, "Cookie preferences");
+    assert.equal(page.settings().type, "button");
+    page.openSettings();
+    assert.equal(page.banner().hidden, false);
+    assert.equal(page.document.activeElement.textContent, "Accept analytics cookies");
+  }
 });

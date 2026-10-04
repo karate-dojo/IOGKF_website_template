@@ -76,8 +76,11 @@ privacy_notice_url = "/privacidade/"
   }
   assert.match(en, /data-privacy-notice-url=["']?\/dojo\/privacy\//);
   assert.match(pt, /data-privacy-notice-url=["']?\/dojo\/pt\/privacidade\//);
-  assert.match(en, /Allow analytics/);
-  assert.match(pt, /Permitir análise/);
+  assert.match(en, /Accept analytics cookies/);
+  assert.match(pt, /Aceitar cookies de análise/);
+  assert.match(en, /Cookie preferences/);
+  assert.match(pt, /Preferências de cookies/);
+  assert.doesNotMatch(en, /Google Analytics to measure/);
 });
 
 test("omitting the privacy notice does not insert a link to the site root", (t) => {
@@ -124,7 +127,7 @@ other = "Leer aviso de privacidad"
     assert.ok(html.includes(label), `Missing Spanish consent text: ${label}`);
   }
   assert.match(html, /data-privacy-notice-url=["']?\/es\/privacy\//);
-  assert.doesNotMatch(html, /Allow analytics|Your privacy choices/);
+  assert.doesNotMatch(html, /Accept analytics cookies|Your privacy choices/);
 });
 
 test("missing consent translations fall back to the default language and produce i18n warnings", (t) => {
@@ -134,7 +137,7 @@ test("missing consent translations fall back to the default language and produce
   t.after(result.cleanup);
   assert.equal(result.status, 0, result.output);
   assert.match(result.page("es/index.html"), /Opciones de privacidad/);
-  assert.match(result.page("es/index.html"), /Allow analytics/);
+  assert.match(result.page("es/index.html"), /Accept analytics cookies/);
   assert.match(result.output, /analytics_consent_accept/);
 });
 
@@ -145,8 +148,8 @@ test("translation fallback follows a Portuguese default rather than hardcoded En
   t.after(result.cleanup);
   assert.equal(result.status, 0, result.output);
   assert.match(result.page("es/index.html"), /Opciones de privacidad/);
-  assert.match(result.page("es/index.html"), /Permitir análise/);
-  assert.doesNotMatch(result.page("es/index.html"), /Allow analytics/);
+  assert.match(result.page("es/index.html"), /Aceitar cookies de análise/);
+  assert.doesNotMatch(result.page("es/index.html"), /Accept analytics cookies/);
 });
 
 for (const [name, config, warning] of [

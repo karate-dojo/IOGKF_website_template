@@ -60,7 +60,9 @@ Hugo resolves these strings in the language of the current page. If an entry is 
 
 ## Visitor consent behavior
 
-When configured, the site presents visitors with **Allow analytics** and **Reject analytics** choices. The Google Analytics script is not requested until the visitor accepts. Rejecting means GA4 is not loaded. Visitors can reopen **Privacy settings** to change or withdraw their choice.
+When configured, the site explains that optional analytics cookies help understand how visitors use the website, with **Accept analytics cookies** and **Reject** choices. The Google Analytics script is not requested until the visitor accepts. Rejecting means GA4 is not loaded. After either choice the banner closes completely; no floating preferences button remains. Visitors can use **Cookie preferences** in the site footer to reopen the banner and change or withdraw their choice. This is a keyboard-accessible button styled as a discreet link.
+
+The generic banner wording does not replace a privacy notice: the dojo's notice should still identify Google Analytics and explain its purpose and data handling.
 
 If GA4 has already been loaded, withdrawal immediately sets Google's per-property collection-disable flag and **reloads the current page** to remove the tag's runtime and automatic event listeners. The reloaded page does not load GA4. Simply setting `analytics_storage` to `denied` would still permit cookieless measurements, so this integration does not rely on that alone. Requests already in flight may finish; withdrawal cannot undo previously collected data and does not erase existing analytics cookies.
 
@@ -92,3 +94,7 @@ node --test tests/analytics-consent.test.cjs tests/analytics-build.test.cjs
 These checks exercise consent state transitions with an isolated DOM harness and validate Hugo output, warnings, configuration conflicts, translations, and the development-server safeguard. They do not send data to Google. Before launch, also verify keyboard navigation, short screens and high zoom, and actual network behavior with your test property in a browser. Browser extensions or network policies can block GA4 even after acceptance.
 
 The GitHub Pages workflow runs these checks before building and deploying the site.
+
+### Banner missing in Safari or another browser
+
+A saved acceptance or rejection hides the banner by design; use the footer's **Cookie preferences** control to reopen it. To check a fresh visit, use a private window or clear the site's stored consent. Content blockers may block GA4 even when the site-hosted banner works; temporarily disable them to diagnose, not to bypass a visitor's choice. If the footer control is also absent, check that JavaScript is enabled and the consent script loaded without browser-console errors. Analytics is intentionally absent under `hugo server`.

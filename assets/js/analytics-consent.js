@@ -114,6 +114,11 @@
   };
 
   const mountConsentInterface = () => {
+    const footer = document.querySelector('footer[role="contentinfo"]');
+    if (!footer) {
+      console.error("Analytics consent requires a site footer for cookie preferences.");
+      return;
+    }
     const banner = document.createElement("section");
     banner.className = "analytics-consent";
     banner.hidden = true;
@@ -163,7 +168,10 @@
       },
     );
     settings.hidden = true;
-    document.body.appendChild(settings);
+    const preferences = document.createElement("div");
+    preferences.className = "analytics-consent-preferences";
+    preferences.appendChild(settings);
+    footer.appendChild(preferences);
 
     function chooseConsent(value) {
       saveConsent(value);
