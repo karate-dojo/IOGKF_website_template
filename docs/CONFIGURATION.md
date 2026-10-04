@@ -237,6 +237,10 @@ timeline:
 
 Google Analytics is configured globally in `hugo.toml`, not in language-specific YAML content. It is disabled by default. See the [Analytics Setup guide](ANALYTICS.md) for creating a dojo-specific GA4 property, enabling it with a Measurement ID, and understanding visitor consent.
 
+## Page SEO Metadata
+
+Set optional `seo.title` and `description` fields in each language's content front matter. SEO titles do not change navigation labels or visible page headings. See [SEO Configuration](SEO.md) for examples and language support.
+
 ## Multi-language Configuration
 
 ### Adding Portuguese Content
