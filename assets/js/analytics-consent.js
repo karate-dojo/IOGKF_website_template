@@ -119,6 +119,12 @@
       console.error("Analytics consent requires a site footer for cookie preferences.");
       return;
     }
+    const footerRow = footer.querySelector(".flex.justify-between");
+    if (!footerRow) {
+      console.error("Analytics consent requires the footer's copyright row.");
+      return;
+    }
+    footerRow.classList.add("analytics-consent-footer-row");
     const banner = document.createElement("section");
     banner.className = "analytics-consent";
     banner.hidden = true;
@@ -171,7 +177,7 @@
     const preferences = document.createElement("div");
     preferences.className = "analytics-consent-preferences";
     preferences.appendChild(settings);
-    footer.appendChild(preferences);
+    footerRow.appendChild(preferences);
 
     function chooseConsent(value) {
       saveConsent(value);

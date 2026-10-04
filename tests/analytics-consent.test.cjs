@@ -31,6 +31,7 @@ function createPage({
       this.dataset = {};
       this.listeners = new Map();
       this.hidden = false;
+      this.classList = { add: (name) => { this.className = name; } };
     }
     appendChild(child) {
       this.children.push(child);
@@ -68,6 +69,9 @@ function createPage({
     addEventListener: (name, callback) => documentListeners.set(name, callback),
   };
   const footer = new Element("footer");
+  const footerRow = new Element("div");
+  footer.querySelector = () => footerRow;
+  footer.appendChild(footerRow);
   document.body.appendChild(footer);
   document.currentScript.dataset = {
     measurementId,
@@ -122,7 +126,7 @@ function createPage({
   const actions = () =>
     banner().children.find((element) => element.className === "analytics-consent__actions");
   return {
-    window, document, footer, values, warnings, banner, settings,
+    window, document, footer, footerRow, values, warnings, banner, settings,
     accept: () => actions().children[0].click(),
     reject: () => actions().children[1].click(),
     openSettings: () => settings().click(),
@@ -345,6 +349,8 @@ test("after either choice the banner closes and only footer preferences remain",
     assert.equal(page.banner().hidden, true);
     assert.equal(page.settings().hidden, false);
     assert.equal(page.footer.contains(page.settings()), true);
+    assert.equal(page.footerRow.contains(page.settings()), true);
+    assert.equal(page.footerRow.className, "analytics-consent-footer-row");
     assert.equal(page.settings().textContent, "Cookie preferences");
     assert.equal(page.settings().type, "button");
     page.openSettings();
