@@ -1,5 +1,4 @@
-.analytics-consent,
-.analytics-consent-settings {
+.analytics-consent {
   position: fixed;
   z-index: 10000;
   right: 1rem;
@@ -75,17 +74,18 @@
 }
 
 .analytics-consent-settings {
-  position: fixed;
-  z-index: 9999;
-  right: 1rem;
-  bottom: 1rem;
-  padding: 0.625rem 0.875rem;
-  border: 1px solid #333;
-  border-radius: 0.25rem;
-  background: #fff;
-  color: #111;
-  box-shadow: 0 0.125rem 0.5rem rgb(0 0 0 / 20%);
+  min-height: 2.75rem;
+  padding: 0.5rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-decoration: underline;
   cursor: pointer;
+}
+
+.analytics-consent-preferences {
+  color: #fff;
+  text-align: center;
 }
 
 @media (max-width: 35rem) {
@@ -93,10 +93,5 @@
     right: 0.5rem;
     bottom: 0.5rem;
     max-width: calc(100vw - 1rem);
-  }
-
-  .analytics-consent-settings {
-    right: 0.5rem;
-    bottom: 0.5rem;
   }
 }
