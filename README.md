@@ -70,6 +70,7 @@ The template includes English and Portuguese translations. To add more languages
 - [📖 Complete Setup Guide](docs/SETUP.md) - Advanced setup and local development
 - [⚙️ Configuration Reference](docs/CONFIGURATION.md) - All YAML files explained
 - [📊 Analytics Setup](docs/ANALYTICS.md) - Optional GA4 setup, consent behavior, and privacy responsibilities
+- [SEO Configuration](docs/SEO.md) - Language-specific page titles and descriptions
 
 ### Customization & Advanced Topics
 

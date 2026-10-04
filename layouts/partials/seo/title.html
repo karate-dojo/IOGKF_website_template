@@ -1,0 +1,5 @@
+{{- with .Params.seo.title -}}
+  {{- . -}}
+{{- else -}}
+  {{- with .Params.Title -}}{{- . }} | {{ end -}}{{- .Site.Title -}}
+{{- end -}}

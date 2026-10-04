@@ -59,8 +59,8 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Check analytics consent and configuration
-        run: node --test tests/analytics-consent.test.cjs tests/analytics-build.test.cjs
+      - name: Check analytics and SEO configuration
+        run: node --test tests/*.test.cjs
 
       - name: Build with Hugo
         env:
