@@ -233,6 +233,10 @@ timeline:
 - If `enabled: false` or file doesn't exist, page won't appear
 - Supports Markdown for rich text formatting
 
+## Optional Analytics
+
+Google Analytics is configured globally in `hugo.toml`, not in language-specific YAML content. It is disabled by default. See the [Analytics Setup guide](ANALYTICS.md) for creating a dojo-specific GA4 property, enabling it with a Measurement ID, and understanding visitor consent.
+
 ## Multi-language Configuration
 
 ### Adding Portuguese Content

@@ -1,0 +1,47 @@
+{{ with site.Config.Services.GoogleAnalytics.ID }}
+  {{ errorf "Do not configure services.googleAnalytics.id or googleAnalytics. Use params.analytics.measurement_id for consent-first analytics." }}
+{{ end }}
+{{ if not site.Config.Privacy.GoogleAnalytics.Disable }}
+  {{ errorf "Keep privacy.googleAnalytics.disable = true to block the theme's built-in analytics integration. Use params.analytics instead." }}
+{{ end }}
+
+{{ with site.Params.analytics }}
+  {{ if and .enabled (not hugo.IsServer) }}
+    {{ $provider := .provider | default "" }}
+    {{ $measurementID := .measurement_id | default "" }}
+    {{ $consentVersion := "1" }}
+    {{ if isset . "consent_version" }}
+      {{ $consentVersion = .consent_version }}
+    {{ end }}
+    {{ $privacyURL := .privacy_notice_url | default "" }}
+    {{ if ne $provider "google-analytics" }}
+      {{ warnf "Analytics is enabled, but provider %q is unsupported; Google Analytics will not be loaded." $provider }}
+    {{ else if ne (len (findRE `^G-[A-Z0-9]{10}$` $measurementID)) 1 }}
+      {{ warnf "Analytics is enabled, but measurement_id %q is not a valid GA4 Measurement ID; Google Analytics will not be loaded." $measurementID }}
+    {{ else if ne (len (findRE `^[A-Za-z0-9_-]+$` $consentVersion)) 1 }}
+      {{ errorf "Analytics consent_version must be a non-empty string containing only letters, numbers, underscores, or hyphens." }}
+    {{ else if and $privacyURL (eq (len (findRE `^(/($|[^/])|https://)` $privacyURL)) 0) }}
+      {{ errorf "Analytics privacy_notice_url must be a site-relative path starting with / or an HTTPS URL." }}
+    {{ else }}
+      {{ with resources.Get "css/analytics-consent.css" | resources.Minify }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}">
+      {{ end }}
+      {{ with resources.Get "js/analytics-consent.js" | resources.Minify }}
+        <script
+          defer
+          src="{{ .RelPermalink }}"
+          data-measurement-id="{{ $measurementID }}"
+          data-consent-version="{{ $consentVersion }}"
+          data-privacy-notice-url="{{ if $privacyURL }}{{ $privacyURL | strings.TrimPrefix "/" | relLangURL }}{{ end }}"
+          data-privacy-notice-label="{{ i18n "analytics_consent_privacy_notice" }}"
+          data-banner-title="{{ i18n "analytics_consent_title" }}"
+          data-banner-message="{{ i18n "analytics_consent_message" }}"
+          data-accept-label="{{ i18n "analytics_consent_accept" }}"
+          data-reject-label="{{ i18n "analytics_consent_reject" }}"
+          data-settings-label="{{ i18n "analytics_consent_settings" }}"
+          data-region-label="{{ i18n "analytics_consent_region" }}"
+        ></script>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}

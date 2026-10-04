@@ -66,3 +66,19 @@ defaultContentLanguageInSubdir = false
   
   # Custom CSS files
   custom_css = ["css/social-links.css"]
+
+  # Analytics is opt-in for each dojo. Leave disabled until the dojo has its
+  # own Google Analytics 4 property and Measurement ID.
+  [params.analytics]
+    enabled = false
+    provider = "google-analytics"
+    measurement_id = ""
+    # Increment when visitors must make a fresh choice (for example, after a
+    # material change to your analytics privacy notice).
+    consent_version = "1"
+    # Optional site-relative path, translated with relLangURL, or HTTPS URL.
+    privacy_notice_url = ""
+
+# Block Ananke's built-in analytics path. Use params.analytics exclusively.
+[privacy.googleAnalytics]
+  disable = true
