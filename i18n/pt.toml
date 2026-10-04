@@ -81,3 +81,24 @@ other = "Horário em Breve"
 
 [organizing_schedule]
 other = "Estamos a organizar o nosso horário de aulas. Volte em breve para ver os horários disponíveis."
+
+[analytics_consent_title]
+other = "As suas opções de privacidade"
+
+[analytics_consent_message]
+other = "Gostaria de permitir que o Google Analytics meça as visitas a este website? O Analytics não será carregado sem a sua autorização. Pode alterar a sua escolha a qualquer momento."
+
+[analytics_consent_accept]
+other = "Permitir análise"
+
+[analytics_consent_reject]
+other = "Rejeitar análise"
+
+[analytics_consent_settings]
+other = "Definições de privacidade"
+
+[analytics_consent_region]
+other = "Opções de consentimento para análise"
+
+[analytics_consent_privacy_notice]
+other = "Leia a nossa política de privacidade"

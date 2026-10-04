@@ -81,3 +81,24 @@ other = "Schedule Coming Soon"
 
 [organizing_schedule]
 other = "We are organizing our class schedule. Please check back soon for available class times."
+
+[analytics_consent_title]
+other = "Your privacy choices"
+
+[analytics_consent_message]
+other = "Would you like to allow Google Analytics to measure visits to this website? Analytics will not load unless you accept. You can change your choice at any time."
+
+[analytics_consent_accept]
+other = "Allow analytics"
+
+[analytics_consent_reject]
+other = "Reject analytics"
+
+[analytics_consent_settings]
+other = "Privacy settings"
+
+[analytics_consent_region]
+other = "Analytics consent options"
+
+[analytics_consent_privacy_notice]
+other = "Read our privacy notice"

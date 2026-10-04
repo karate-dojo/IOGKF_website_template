@@ -15,3 +15,5 @@
 {{ with resources.Get "js/mobile-menu.js" | resources.Minify }}
 <script defer src="{{ .RelPermalink }}"></script>
 {{ end }}
+
+{{ partial "analytics/google-analytics.html" . }}

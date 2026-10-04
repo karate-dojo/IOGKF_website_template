@@ -117,6 +117,12 @@ Create `content/es/` and add your Spanish content files.
 
 The language switcher will automatically appear when multiple languages are configured.
 
+### Step 4: Translate Interface Strings
+
+Copy `i18n/en.toml` to `i18n/{lang}.toml` and translate its values. This includes the optional analytics consent banner, its buttons, the accessible region label, and the privacy-notice link. See [Consent translations for additional languages](ANALYTICS.md#consent-translations-for-additional-languages) for the complete analytics key list.
+
+Hugo falls back to `defaultContentLanguage` for missing translations. Keep that language's interface strings complete, and use `hugo --printI18nWarnings` to find untranslated entries.
+
 ## 🎛️ Configuration Options
 
 ### Single Language Setup

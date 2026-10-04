@@ -69,6 +69,7 @@ The template includes English and Portuguese translations. To add more languages
 - [🥋 **Dojo Owner's Quick Start**](docs/QUICK_START.md) - **15-minute setup for dojo owners**
 - [📖 Complete Setup Guide](docs/SETUP.md) - Advanced setup and local development
 - [⚙️ Configuration Reference](docs/CONFIGURATION.md) - All YAML files explained
+- [📊 Analytics Setup](docs/ANALYTICS.md) - Optional GA4 setup, consent behavior, and privacy responsibilities
 
 ### Customization & Advanced Topics
 
