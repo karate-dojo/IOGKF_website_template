@@ -9,3 +9,21 @@ figure.center img {
     max-width: 100%;
     height: auto;
 }
+
+.instructors-page > h1 {
+    font-size: 1.5em;
+    margin-block: 0.83em;
+}
+
+.instructors-page > h2 {
+    font-size: 1.17em;
+    margin-block: 1em;
+}
+
+.home-contact > h2 {
+    margin-block-start: 1em;
+}
+
+.home-contact h3 {
+    margin-block-start: 1.33em;
+}

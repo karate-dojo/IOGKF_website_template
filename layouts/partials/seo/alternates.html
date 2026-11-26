@@ -1,0 +1,7 @@
+{{- if and .IsTranslated (not .Params.private) (ne .Kind "404") -}}
+  {{- range .AllTranslations }}
+    {{- if not .Params.private }}
+<link rel="alternate" hreflang="{{ .Language.LanguageCode | default .Language.Lang }}" href="{{ .Permalink }}">
+    {{- end }}
+  {{- end }}
+{{- end }}
