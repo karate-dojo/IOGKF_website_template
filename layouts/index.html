@@ -30,10 +30,13 @@ Data Sources:
       - Uses .Site.BaseURL for GitHub Pages compatibility
       - Fallback to site title if no logo
       */}}
+      {{ if fileExists "static/images/logo.png" }}
+      {{ $logo := images.Config "static/images/logo.png" }}
       <div class="mb4">
-        <img src="{{ .Site.BaseURL }}images/logo.png" alt="IOGKF Logo" class="center db"
-          style="max-height: 120px; max-width: 300px;">
+        <img src="{{ "images/logo.png" | relURL }}" alt="{{ .Site.Params.logo_alt | default $dojo.dojo_name | default .Site.Title }}" class="center db"
+          width="{{ $logo.Width }}" height="{{ $logo.Height }}" style="max-height: 120px; max-width: 300px; width: auto; height: auto;">
       </div>
+      {{ end }}
 
       {{/*
       Dojo Name Display
@@ -41,9 +44,9 @@ Data Sources:
       - Fallback: hugo.toml -> title
       */}}
       {{ if $dojo.dojo_name }}
-      <div class="f2 f1-l fw6 white-90 mb0 lh-title">{{ $dojo.dojo_name }}</div>
+      <h1 class="f2 f1-l fw6 white-90 mt0 mb0 lh-title">{{ $dojo.dojo_name }}</h1>
       {{ else }}
-      <div class="f2 f1-l fw6 white-90 mb0 lh-title">{{ .Site.Title }}</div>
+      <h1 class="f2 f1-l fw6 white-90 mt0 mb0 lh-title">{{ .Site.Title }}</h1>
       {{ end }}
 
       {{/*
@@ -65,9 +68,9 @@ Data Sources:
       - Text from i18n translation files
       */}}
       <div class="mt4">
-        <a href="{{ "contact" | relLangURL }}" class="f6 link dim br3 ph3 pv2 mb2 dib white bg-red mr3">{{ i18n
+        <a href="{{ "contact/" | relLangURL }}" class="f6 link dim br3 ph3 pv2 mb2 dib white bg-red mr3">{{ i18n
           "contact_us" }}</a>
-        <a href="{{ "schedule" | relLangURL }}"
+        <a href="{{ "schedule/" | relLangURL }}"
           class="f6 link dim br3 ph3 pv2 mb2 dib black bg-light-gray ba b--gray">{{ i18n "view_schedule" }}</a>
       </div>
     </div>
@@ -91,26 +94,26 @@ Main Content Section
   - UX-optimized colors: red for primary elements, black/gray for text
   */}}
   {{ if $dojo }}
-  <div class="mt5 pt4 bt b--light-gray">
-    <h3 class="f3 fw6 mb4 tc red">{{ i18n "visit_our_dojo" }}</h3>
+  <div class="home-contact mt5 pt4 bt b--light-gray">
+    <h2 class="f3 fw6 mb4 tc red">{{ i18n "visit_our_dojo" }}</h2>
     <div class="cf">
       {{ if $dojo.address }}
       <div class="fl w-100 w-third-ns pr3-ns mb3">
-        <h4 class="f5 fw6 mb2 black">📍 {{ i18n "location" }}</h4>
+        <h3 class="f5 fw6 mb2 black">📍 {{ i18n "location" }}</h3>
         <p class="f6 ma0 lh-copy gray">{{ $dojo.address | markdownify }}</p>
       </div>
       {{ end }}
 
       {{ if $dojo.phone }}
       <div class="fl w-100 w-third-ns ph3-ns mb3">
-        <h4 class="f5 fw6 mb2 black">📞 {{ i18n "phone" }}</h4>
-        <p class="f6 ma0"><a href="tel:{{ $dojo.phone }}" class="link red hover-dark-red">{{ $dojo.phone }}</a></p>
+        <h3 class="f5 fw6 mb2 black">📞 {{ i18n "phone" }}</h3>
+        <p class="f6 ma0"><a href="tel:{{ $dojo.phone | replaceRE "[^0-9+]" "" }}" class="link red hover-dark-red">{{ $dojo.phone }}</a></p>
       </div>
       {{ end }}
 
       {{ if $dojo.email }}
       <div class="fl w-100 w-third-ns pl3-ns mb3">
-        <h4 class="f5 fw6 mb2 black">✉️ {{ i18n "email" }}</h4>
+        <h3 class="f5 fw6 mb2 black">✉️ {{ i18n "email" }}</h3>
         <p class="f6 ma0"><a href="mailto:{{ $dojo.email }}" class="link red hover-dark-red">{{ $dojo.email }}</a></p>
       </div>
       {{ end }}

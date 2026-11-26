@@ -41,7 +41,7 @@
                                 {{ i18n "phone_contact" }}
                             </h3>
                             <div class="f5 lh-copy">
-                                <a href="tel:{{ $dojoData.phone | replaceRE " [^0-9+]" "" }}"
+                                <a href="tel:{{ $dojoData.phone | replaceRE "[^0-9+]" "" }}"
                                     class="link red hover-dark-red">
                                     {{ $dojoData.phone }}
                                 </a>

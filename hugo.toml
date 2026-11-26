@@ -10,6 +10,7 @@ theme = "ananke"
 # Configure which languages your site supports
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
+enableRobotsTXT = true
 
 # To add or remove languages, modify the [languages] section below
 # and ensure you have corresponding:
@@ -30,12 +31,16 @@ defaultContentLanguageInSubdir = false
     weight = 1
     contentDir = "content/en"
     languageName = "English"
+    [languages.en.params]
+      social_locale = "en_US"
     
   [languages.pt]
     title = "Dojo Sakura"  
     weight = 2
     contentDir = "content/pt"
     languageName = "Português"
+    [languages.pt.params]
+      social_locale = "pt_PT"
 
 # Example: To add Spanish support, uncomment the following:
 # [languages.es]
